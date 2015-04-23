@@ -19,9 +19,10 @@ for feature in record.features:
                 color = colors.blue
             else:
                 color = colors.lightblue
-            gd_feature_set.add_feature(feature, color=color, label=True)
+            #gd_feature_set.add_feature(feature, color=color, label=True)
+            gd_feature_set.add_feature(feature, label=True, sigil="ARROW", color="brown", arrowshaft_height=0.2, name=feature.qualifiers.get('product')[0])
 
-gd_diagram.draw(format="linear", orientation="landscape", pagesize='A4', fragments=1, start=0, end=len(record))
+gd_diagram.draw(format="linear", orientation="landscape", pagesize='A4', fragments=30, start=0, end=len(record))
 gd_diagram.write("linear.pdf", "PDF")
 #gd_diagram.write("plasmid_linear.eps", "EPS")
 #gd_diagram.write("plasmid_linear.svg", "SVG")
