@@ -12,14 +12,14 @@ genomes = ['0001', '0005', '0007', '0008', '0009', '0010', '0011',
 is26 = {
     '0001': ((35928, 36746), (39229, 40048), (151907, 152726)),
     '0005': ((114568, 115387), (118914, 119733), (125526, 126345)),
-    '0007': ((156624, 157443), (31272, 32091), (44315, 45134), (136266, 137085), 
+    '0007': ((156624, 157443), (31272, 32091), (44315, 45134), (136266, 137085),
         (43071,43890), (38573, 39392), (145083, 145902), (33104, 33923), (149429, 150248)),
     '0008': ((5389, 6208), (4347, 5166), (1, 820)),
     '0009': ((362, 1181), (12947, 13766),(11703, 12522), (6540, 7359), (2194, 3013)),
-    '0010': ((20337, 21156), (141275, 142094)),
+    '0010': ((20337, 21156), (141275, 142094), (19093, 19912)),
     '0011': ((12304, 13123), (19277, 20096), (1460, 2279)),
     '0014': ((117640, 118459), (110574, 111393), (112434, 113253)),
-    '0015': ((4517, 5336), (19042, 19861), (150016, 150835), (25598, 26417), (23738, 24557), 
+    '0015': ((4517, 5336), (19042, 19861), (150016, 150835), (25598, 26417), (23738, 24557),
         (179365, 180184), (165323, 166142), (165323, 166142)),
     '0016': ((157299, 158118), (20336, 21155), (19093, 19912), (127230, 128049), (113483,114302)),
     '0017': ((22025, 22844), (131331, 132150), (20781, 21600)),
@@ -56,19 +56,18 @@ for genome in genomes:
     for feature in record.features:
 
         if feature.type != "gene":
-            if isinstance(feature.qualifiers.get('product'), list) and \
-                'transposase' in feature.qualifiers.get('product')[0] :
+            if isinstance(feature.qualifiers.get('product'), list) and 'transposase' in feature.qualifiers.get('product')[0]:
 
                 #if len(gd_feature_set) % 2 == 0:
                 #    color = '#44ACAC'
                 #else:
                 #    color = '#EC5503'
-                color = '#44ACAC'
+                color = '#33ACAC'
                 name = feature.qualifiers.get('product')[0]
 
                 for is_pos in is26[genome]:
                     if feature.location.start > is_pos[0] and feature.location.end < is_pos[1]:
-                        color = '#DACC15'
+                        color = '#DBCC36'
                         name = 'IS26'
 
                 #if is26_truncated.setdefault(genome) is not None:
@@ -79,6 +78,19 @@ for genome in genomes:
                 #            color = '#66EC33'
                 #            name = 'is26_truncated'
                 #print feature.location.start, feature.location.end
+                gd_feature_set.add_feature(feature, label=False, sigil="ARROW", color=color,
+                    arrowshaft_height=0.4, arrowhead_length=0.3, name=name,
+                    label_position="middle", label_angle=45)
+
+            elif 'transposase' in str(feature.qualifiers.get('note')):
+                color = '#693ABB'
+                name = feature.qualifiers.get('product')
+
+                for is_pos in is26[genome]:
+                    if feature.location.start > is_pos[0] and feature.location.end < is_pos[1]:
+                        color = '#DBCC36'
+                        name = 'IS26'
+
                 gd_feature_set.add_feature(feature, label=False, sigil="ARROW", color=color,
                     arrowshaft_height=0.4, arrowhead_length=0.3, name=name,
                     label_position="middle", label_angle=45)
