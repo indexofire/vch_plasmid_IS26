@@ -2,7 +2,7 @@ from reportlab.lib import colors
 from reportlab.lib.units import cm
 from Bio.Graphics import GenomeDiagram
 from Bio import SeqIO
-
+from Bio.SeqFeature import SeqFeature, FeatureLocation
 
 genomes = ['0001', '0005', '0007', '0008', '0009', '0010', '0011',
     '0014', '0015', '0016', '0017', '0018', '0019', '0020', '0021',
@@ -51,7 +51,7 @@ is26_truncated = {
     '0007': ((30894, 31271),),
 }
 
-gd_diagram = GenomeDiagram.Diagram("IncA/C plasmid genomes")
+gd_diagram = GenomeDiagram.Diagram("IncA/C plasmid genomes", xl=0.01, xr=0.01, yt=0.01, yb=0.01)
 max_len = 0
 
 
@@ -59,10 +59,11 @@ for genome in genomes:
     record = SeqIO.read("../sequences/%s.gb" % genome, "genbank")
     max_len = max(max_len, len(record))
     gd_track_for_features = gd_diagram.new_track(1, greytrack=True, start=0,
-        end=len(record), name=record.name)
+        end=len(record), greytrack_labels=1, greytrack_fontsize=12,
+        scale=1, scale_format='Kbp', scale_smallticks=0.3, 
+        scale_smalltick_interval=20000, axis_labes=True, name=record.description.split(',')[0])
     gd_feature_set = gd_track_for_features.new_set()
     for feature in record.features:
-
         if feature.type != "gene":
             if isinstance(feature.qualifiers.get('product'), list) and 'transposase' in feature.qualifiers.get('product')[0]:
 
@@ -103,5 +104,13 @@ for genome in genomes:
                     arrowshaft_height=0.4, arrowhead_length=0.3, name=name,
                     label_position="middle", label_angle=45)
 
-gd_diagram.draw(format="linear", orientation="landscape", pagesize=(160*cm, 40*cm), fragments=1, start=0, end=max_len)
+
+gd_track_for_features = gd_diagram.new_track(1, greytrack=False, start=0,
+        end=max_len, greytrack_labels=1, greytrack_fontsize=12,
+        scale=1, scale_format='Kbp', scale_smallticks=0.3, 
+        scale_smalltick_interval=20000, axis_labes=True)
+gd_feature_set = gd_track_for_features.new_set()
+gd_feature_set.add_feature(SeqFeature(FeatureLocation(1,2), strand=None))
+
+gd_diagram.draw(format="linear", orientation="landscape", pagesize=(120*cm, 50*cm), fragments=1, start=0, end=max_len)
 gd_diagram.write("linear.pdf", "PDF")
