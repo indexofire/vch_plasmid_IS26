@@ -1,0 +1,49 @@
+Length = 820
+
+>copy1:
+ Score = 1626 bits (820), Expect = 0.0
+ Identities = 820/820 (100%)
+ Strand = Plus / Minus
+ 176068 - 176887
+
+>copy2:
+ Score = 1626 bits (820), Expect = 0.0
+ Identities = 820/820 (100%)
+ Strand = Plus / Plus
+ 160010 - 160829
+
+>copy3:
+ Score = 1626 bits (820), Expect = 0.0
+ Identities = 820/820 (100%)
+ Strand = Plus / Plus
+ 163663 - 164482
+
+>copy4:
+ Score = 1626 bits (820), Expect = 0.0
+ Identities = 820/820 (100%)
+ Strand = Plus / Plus
+ 167558 - 168377
+
+>copy5:
+ Score = 1626 bits (820), Expect = 0.0
+ Identities = 820/820 (100%)
+ Strand = Plus / Minus
+ 60970 - 61789
+
+>copy6:
+ Score = 1626 bits (820), Expect = 0.0
+ Identities = 820/820 (100%)
+ Strand = Plus / Plus
+ 211087 - 211906
+
+>copy7:
+ Score = 1626 bits (820), Expect = 0.0
+ Identities = 820/820 (100%)
+ Strand = Plus / Plus
+ 219904 - 220723
+
+>copy8:
+ Score = 1626 bits (820), Expect = 0.0
+ Identities = 820/820 (100%)
+ Strand = Plus / Minus
+ 32816 - 33635

@@ -1,0 +1,19 @@
+Length = 820
+
+>copy1:
+ Score = 1626 bits (820), Expect = 0.0
+ Identities = 820/820 (100%)
+ Strand = Plus / Minus
+ 151907 - 152726
+
+>copy2:
+ Score = 1626 bits (820), Expect = 0.0
+ Identities = 820/820 (100%)
+ Strand = Plus / Plus
+ 39229 - 40048
+
+>copy3:
+ Score = 1624 bits (819), Expect = 0.0
+ Identities = 819/819 (100%)
+ Strand = Plus / Minus
+ 35928 - 36746

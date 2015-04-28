@@ -1,0 +1,7 @@
+Length = 820
+
+>copy1:
+ Score =  192 bits (97), Expect = 1e-46
+ Identities = 97/97 (100%)
+ Strand = Plus / Minus
+ 170886 - 170982 / 820 - 724
