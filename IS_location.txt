@@ -1,17 +1,5 @@
-# '-'*'-' coding: utf'-'8 '-'*'-'
-# plotting plasmid IS from is finder database
-#E value < e'-'41
-from reportlab.lib import colors
-from reportlab.lib.units import cm
-from Bio.Graphics import GenomeDiagram
-from Bio import SeqIO
-from Bio.SeqFeature import SeqFeature, FeatureLocation
+# All based on E values < e-40
 
-
-genomes = ['0001', '0005', '0007', '0008', '0009', '0010', '0011',
-    '0014', '0015', '0016', '0017', '0018', '0019', '0020', '0021',
-    '0022', '0024', '0029', '0035', '0036', '0037', '0038', '0039',
-    '0040', '0041', '0042', '0043', '0044']
 
 # position identified by is finder
 # full length = 820bp
@@ -373,104 +361,10 @@ pos_ISKpn6 = {
 
 # full length = 1333bp
 pos_ISAs17 = {
-	'0042': ((94063, 95395, '+'),),
+    '0042': ((94063, 95395, '+'),),
 }
 
 # full length = 1283bp
 pos_IS5D = {
-	'0042': ((37949, 39001, '-'), (37808, 38042, '-')),
+    '0042': ((37949, 39001, '-'), (37808, 38042, '-')),
 }
-
-gd_diagram = GenomeDiagram.Diagram("IncA/C plasmid genomes", xl=0.01, xr=0.01, yt=0.01, yb=0.01)
-max_len = 0
-
-for genome in genomes:
-    record = SeqIO.read("../sequences/%s.gb" % genome, "genbank")
-    max_len = max(max_len, len(record))
-    gd_track_for_features = gd_diagram.new_track(1, greytrack=True, start=0, end=len(record),
-    	greytrack_labels=1, greytrack_fontsize=12, scale=1, scale_format='Kbp', scale_smallticks=0.3,
-        scale_smalltick_interval=20000, axis_labes=True, name=record.description.split(',')[0])
-    gd_feature_set = gd_track_for_features.new_set()
-
-    if genome in pos_IS26:
-    	for feature in pos_IS26[genome]:
-    		if feature[2] == '+':
-    			strand = +1
-    		else:
-    			strand = -1
-    		gd_feature_set.add_feature(SeqFeature(FeatureLocation(feature[0], feature[1]), strand=strand),
-    			label=False, color='#990000', name='IS26', sigil="ARROW", arrowshaft_height=0.4,
-    			arrowhead_length=0.3, label_position="middle", label_angle=45)
-
-    if genome in pos_IS26_truncated:
-    	for feature in pos_IS26_truncated[genome]:
-    		if feature[2] == '+':
-    			strand = +1
-    		else:
-    			strand = -1
-    		gd_feature_set.add_feature(SeqFeature(FeatureLocation(feature[0], feature[1]), strand=strand),
-    			label=True, color='#FF6600', name='767bp IS26', sigil="ARROW", arrowshaft_height=0.4,
-    			arrowhead_length=0.3, label_position="middle", label_angle=45)
-
-    if genome in pos_IS26_small:
-    	for feature in pos_IS26_small[genome]:
-    		if feature[2] == '+':
-    			strand = +1
-    		else:
-    			strand = -1
-    		gd_feature_set.add_feature(SeqFeature(FeatureLocation(feature[0], feature[1]), strand=strand),
-    			label=True, color='#00CC00', name='380bp IS26', sigil="ARROW", arrowshaft_height=0.4,
-    			arrowhead_length=0.3, label_position="middle", label_angle=45)
-
-    if genome in pos_IS26_tiny:
-    	for feature in pos_IS26_tiny[genome]:
-    		if feature[2] == '+':
-    			strand = +1
-    		else:
-    			strand = -1
-    		gd_feature_set.add_feature(SeqFeature(FeatureLocation(feature[0], feature[1]), strand=strand),
-    			label=True, color='#3399FF', name='100bp IS26', sigil="ARROW", arrowshaft_height=0.4,
-    			arrowhead_length=0.3, label_position="middle", label_angle=45)
-
-    if genome in pos_Tn3g:
-    	for feature in pos_Tn3g[genome]:
-    		if feature[2] == '+':
-    			strand = +1
-    		else:
-    			strand = -1
-    		gd_feature_set.add_feature(SeqFeature(FeatureLocation(feature[0], feature[1]), strand=strand),
-    			label=True, color='#330099', name='Tn3 family', sigil="ARROW", arrowshaft_height=0.4,
-    			arrowhead_length=0.3, label_position="middle", label_angle=45)
-
-    if genome in pos_IS1380g:
-    	for feature in pos_IS1380g[genome]:
-    		if feature[2] == '+':
-    			strand = +1
-    		else:
-    			strand = -1
-    		gd_feature_set.add_feature(SeqFeature(FeatureLocation(feature[0], feature[1]), strand=strand),
-    			label=True, color='#99FF00', name='IS1380 family', sigil="ARROW", arrowshaft_height=0.4,
-    			arrowhead_length=0.3, label_position="middle", label_angle=45)
-
-    if genome in pos_IS91g:
-    	for feature in pos_IS91g[genome]:
-    		if feature[2] == '+':
-    			strand = +1
-    		else:
-    			strand = -1
-    		gd_feature_set.add_feature(SeqFeature(FeatureLocation(feature[0], feature[1]), strand=strand),
-    			label=True, color='#00FFFF', name='IS91 family', sigil="ARROW", arrowshaft_height=0.4,
-    			arrowhead_length=0.3, label_position="middle", label_angle=45)
-
-    if genome in pos_IS110g:
-    	for feature in pos_IS110g[genome]:
-    		if feature[2] == '+':
-    			strand = +1
-    		else:
-    			strand = -1
-    		gd_feature_set.add_feature(SeqFeature(FeatureLocation(feature[0], feature[1]), strand=strand),
-    			label=True, color='#54DBAC', name='IS110 family', sigil="ARROW", arrowshaft_height=0.4,
-    			arrowhead_length=0.3, label_position="middle", label_angle=45)
-
-gd_diagram.draw(format="linear", orientation="landscape", pagesize=(120*cm, 50*cm), fragments=1, start=0, end=max_len)
-gd_diagram.write("plasmid_plot.pdf", "PDF")
